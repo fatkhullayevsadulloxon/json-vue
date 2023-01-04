@@ -53,9 +53,7 @@ export default {
     };
   },
   methods: {
-     mounted(){
-        this.fetchmovie()
-    },
+    
      async fetchmovie() {
          const response = await axios.get("https://dummyjson.com/products", {
             params: {
@@ -79,6 +77,9 @@ export default {
         this.fetchmovieFilter();
     }
   },
+   mounted(){
+        this.fetchmovie()
+    },
 };
 </script>
 
