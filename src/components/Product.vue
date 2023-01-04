@@ -52,10 +52,10 @@ export default {
       total: 99   
     };
   },
-  methods: {
-     mounted(){
+  mounted(){
         this.fetchmovie()
     },
+  methods: {
      async fetchmovie() {
          const response = await axios.get("https://dummyjson.com/products", {
             params: {
