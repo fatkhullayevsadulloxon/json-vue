@@ -3,6 +3,11 @@
 
         <div class="container"> 
             <h1>Texnomart</h1>
+            <div>
+                <div>
+                    <h1>Topilgan sahifalar soni {{this.total}} ta</h1>
+                </div>
+            </div>
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div v-for="item in list" :key="item.id" class="col">
                     <div class="card shadow">
@@ -15,7 +20,6 @@
                         <h2>{{item.price}}$</h2>
                      </div>
                     </div>
-
                 </div>
             </div>
         </div>    
@@ -31,6 +35,7 @@
                 </li>
                 </ul>
             </nav>
+            <button @click="handleFilter()" class="btn btn-outline-primary w-25 mx-auto mb-5">Filterlani tiklash</button>
     </div>
 </template>
 
@@ -41,13 +46,16 @@ export default {
   data() {
     return {
       list: [],
-      images: [],
-      skip: 1,
+      hammasi: [],
+      skip: 0,
       limit: 4,
-      total: 120    
+      total: 99   
     };
   },
   methods: {
+     mounted(){
+        this.fetchmovie()
+    },
      async fetchmovie() {
          const response = await axios.get("https://dummyjson.com/products", {
             params: {
@@ -56,15 +64,20 @@ export default {
         }
     });
     this.list = response.data.products;
-       },
-       
-    mounted(){
-        this.fetchmovie()
+   
+    },
+     async fetchmovieFilter() {
+         const response = await axios.get("https://dummyjson.com/products");
+        this.list = response.data.products;
+   
     },
     changePageHandler(skip) {
         this.skip = skip 
         this.fetchmovie()
     },
+    handleFilter() {
+        this.fetchmovieFilter();
+    }
   },
 };
 </script>
@@ -74,6 +87,10 @@ export default {
         width: 900px !important;
         overflow-x: scroll;
         margin: 0 auto
+    }
+
+    .pagination3{
+        display: none
     }
 
    @media only screen and (max-width: 974px) {
